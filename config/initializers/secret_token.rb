@@ -9,4 +9,19 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Nomina::Application.config.secret_key_base = 'e9f24b458ae455dfd470cb72693cfe812b5955893d25ffcdb3be222d2d6cb4ac9f3b117ed91ad84abe3846cba25668f35b5d4a169fd6ebeb350ca780ac0f51cb'
+require 'securerandom'
+
+def secure_token
+  token_file = Rails.root.join('.secret')
+  if File.exist?(token_file)
+    # Use the existing token.
+    File.read(token_file).chomp
+  else
+    # Generate a new token and store it in token_file.
+    token = SecureRandom.hex(64)
+    File.write(token_file, token)
+    token
+  end
+end
+
+Nomina::Application.config.secret_key_base = secure_token
