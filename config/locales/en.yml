@@ -22,7 +22,7 @@
 en:
   hello: "Hello world"
   application:
-    name: "Application Name"
+    name: "Application Name n"
   menu:
     primary:
       home:   "Home"
@@ -38,16 +38,8 @@ en:
   activerecord:
     models:
       user: "User"
-      device: "Device"
     attributes:
       device:
-        color: "Color: "
-        description: "Description: "
-        id_inventario: "ID Itexico: "
-        no_serie: "Serie: "
-        so: "SO: "
-        type_device: "Type: "
-        udid: "UDID: "
         version: "Version: "
 
   devices:
