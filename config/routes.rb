@@ -1,4 +1,6 @@
 Nomina::Application.routes.draw do
+  root 'home#index'
+  devise_for :users, :path => "usuarios", :path_names => { :sign_in => 'login', :sign_out => 'logout'}
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
