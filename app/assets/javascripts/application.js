@@ -13,5 +13,17 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+//= require lib/underscore
+//= require backbone
+//= require backbone.marionette
+//= require handlebars
+//= require ./backbone/config/render
+//= require backbone/app
+//= require_tree ./backbone/apps
+//= require_tree ./backbone/entities/models
+//= require_tree ./backbone/entities/collections
+//= require_tree ./backbone/entities
+//= require_tree ./templates
+
 //= require turbolinks
 //= require_tree .

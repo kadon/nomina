@@ -15,8 +15,11 @@ group :assets do
   gem 'coffee-rails', '~> 4.0.1'
   # Use Uglifier as compressor for JavaScript assets
   gem 'uglifier', '>= 2.4.0'
-
 end
+gem 'underscore-rails'
+gem 'backbone-rails', '1.1.0'
+gem 'marionette-rails', '1.6.2'
+gem 'handlebars_assets'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -36,7 +39,7 @@ group :doc do
 end
 
 gem "devise", ">= 2.2.3"
-gem "haml-rails", '0.5.3'
+gem "haml-rails"
 gem 'bootstrap-sass', '~> 3.1.1'
 
 # Use ActiveModel has_secure_password
