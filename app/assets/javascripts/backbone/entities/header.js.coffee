@@ -1,8 +1,8 @@
 NominaApp.module "Entities", (Entities, NominaApp, Backbone, Marionette, $, _) ->
   initializeHeaders = ->
     Entities.headers = new Entities.HeaderCollection([
-      name: "Option1"
-      url: "option_1"
+      name: "Builder"
+      url: "builder"
     ])
 
   API = getHeaders: ->

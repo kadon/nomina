@@ -3,7 +3,7 @@ NominaApp.module "HeaderApp.List.Views", (Views, ManagerDevicesApp, Backbone, Ma
     template: "headers/header_menu"
     tagName: "li"
     events:
-      "click a.menu-item": "navigate"
+      "click a": "navigate"
 
     navigate: (e) ->
       e.preventDefault()
