@@ -11,3 +11,10 @@
   options or (options = {})
   Backbone.history.navigate route, options
 
+@NominaApp.getCurrentRoute = ->
+  Backbone.history.fragment
+
+@NominaApp.on "initialize:after", ->
+  if Backbone.history
+    Backbone.history.start()
+    NominaApp.trigger "home:index" if @getCurrentRoute() is ""

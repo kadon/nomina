@@ -5,12 +5,13 @@ NominaApp.module "HeaderApp.List.Views", (Views, ManagerDevicesApp, Backbone, Ma
     itemView: Views.Header
     itemViewContainer: "ul#left-menu-js"
     events:
-      "click a.brand": "brandClicked"
+      "click a.navbar-brand": "brandClicked"
     
     ui:
       userButton: '#user-caret-js'
 
     brandClicked: (e) ->
+      e.preventDefault()
       @trigger "brand:clicked"
 
     onRender: ->
