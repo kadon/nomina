@@ -19,6 +19,7 @@
 //= require handlebars
 //= require ./backbone/config/render
 //= require backbone/app
+//= require lib/xls
 //= require_tree ./backbone/apps
 //= require_tree ./backbone/entities/models
 //= require_tree ./backbone/entities/collections

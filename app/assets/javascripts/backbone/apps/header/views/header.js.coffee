@@ -1,4 +1,4 @@
-NominaApp.module "HeaderApp.List.Views", (Views, ManagerDevicesApp, Backbone, Marionette, $, _) ->
+NominaApp.module "HeaderApp.List.Views", (Views, NominaApp, Backbone, Marionette, $, _) ->
   class Views.Header extends Marionette.ItemView
     template: "headers/header_menu"
     tagName: "li"

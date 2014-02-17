@@ -6,6 +6,7 @@ NominaApp.module "BuilderApp", (BuilderApp, NominaApp, Backbone, Marionette, $, 
 
     builderPanel.on "builder:parse:file", (file) ->
       console.log("Aca es donde se hará el parser del archivo ")
+      
 
     builderLayout.on "show", ->
       builderLayout.panelRegion.show builderPanel

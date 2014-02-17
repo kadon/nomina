@@ -4,3 +4,5 @@ NominaApp.module "BuilderApp.Views", (Views, NominaApp, Backbone, Marionette, $,
     regions:
       panelRegion: "#panel-region"
       contentRegion: "#content-region"
+    initialize: ->
+      console.log "Linitialize layout..."
