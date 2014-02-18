@@ -1,9 +1,15 @@
-<form class="navbar-form navbar-right">
+<form class="navbar-form navbar-left">
   <div class="form-group">
-    <input type="file"/>
+    <input id="files-js" type="file"/>
   </div>
-  <button type="submit" class="btn btn-default">
+  <button id="load-file-js" type="submit" class="btn btn-default">
     <span class="glyphicon glyphicon-save"></span>
     Obtener datos
   </button>
 </form>
+
+<div class="progress">
+  <div id="progress-bar-js" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+  </div>
+</div>
+
