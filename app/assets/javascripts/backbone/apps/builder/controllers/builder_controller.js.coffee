@@ -65,6 +65,9 @@ NominaApp.module "BuilderApp", (BuilderApp, NominaApp, Backbone, Marionette, $, 
           BuilderApp.trigger "update:progress:parser", 100
           console.log('json')
           console.log(json)
+
+          that.transform_data(json)
+
         reader.readAsBinaryString(f)
         i++
 
@@ -82,16 +85,33 @@ NominaApp.module "BuilderApp", (BuilderApp, NominaApp, Backbone, Marionette, $, 
 
       return valid
 
+    push_data: (name_object, object_array, json_res)->
+      if object_array and object_array.length isnt undefined
+        _.each object_array, (object) ->
+          id = object.id_comprobante
+          if id  and json_res[id]
+            if json_res[id][name_object]
+              json_res[id][name_object].push object
+            else
+              json_res[id][name_object] = [ object ]
+      else
+        console.log("No existe el elemeto " + name_object)
+
     #Esta función convertirá los datos (en json) que se obtienen del xls a la estructura (en json) que se enviará  
     transform_data: (json_xls) ->
       json_res = {}
-      if json_xls.comprobante
-        _.each json_xls.comprobante, (comprobante) ->
+      if json_xls.comprobantes and json_xls.comprobantes.length isnt undefined
+        _.each json_xls.comprobantes, (comprobante) ->
           id = comprobante.id
-          json_res[id]
-          json_res.comprobante = comprobante
-          comprobante.receptor = json_xls.receptor
-          
+          json_res[id] = comprobante
+        
+        this.push_data("conceptos", json_xls.conceptos, json_res)
+        this.push_data("deduciones", json_xls.deducciones, json_res)
+        this.push_data("horas_extras", json_xls.horas_extras, json_res)
+        this.push_data("impuestos", json_xls.impuestos, json_res)
+        this.push_data("incapacidades", json_xls.incapacidades, json_res)
+        this.push_data("percepciones", json_xls.percepciones, json_res)
+        console.log(json_res)
       else
         console.log("No existe el elemento comprobante")
 
