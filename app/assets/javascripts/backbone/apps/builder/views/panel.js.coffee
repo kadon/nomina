@@ -27,4 +27,3 @@ NominaApp.module "BuilderApp.Views", (Views, NominaApp, Backbone, Marionette, $,
     updateProgress: (percentage)->
       @ui.progressBar.css('width', percentage + '%')
       @ui.progressBar.text( percentage + '%')
-      console.log "Update progress" + percentage + '%'
