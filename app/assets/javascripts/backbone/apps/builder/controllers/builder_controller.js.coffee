@@ -3,11 +3,10 @@ NominaApp.module "BuilderApp", (BuilderApp, NominaApp, Backbone, Marionette, $, 
   BuilderApp.Controller = builder: ->
     builderLayout = new BuilderApp.Views.Layout()
     builderPanel = new BuilderApp.Views.Panel()
-    builderContent = new BuilderApp.Views.Content()
+    builderContent = new BuilderApp.Views.Content( {collection: new Backbone.Collection()} )
 
     builderPanel.on "builder:parse:file", (files) ->
-      if API.valid_files(files)
-        API.parser(files)
+      BuilderApp.trigger "builder:parse:file", files
 
     builderLayout.on "show", ->
       console.log('Layout show...')
@@ -21,11 +20,19 @@ NominaApp.module "BuilderApp", (BuilderApp, NominaApp, Backbone, Marionette, $, 
       builderContent .off()
       builderContent .remove()
 
+    BuilderApp.on "builder:parse:file", (files) ->
+      if API.valid_files(files)
+        builderContent.collection.reset([])
+        API.parser(files)
+
     BuilderApp.on "update:progress:parser", (percentage) ->
       builderPanel.trigger "update:progress", percentage
 
-    NominaApp.mainRegion.show builderLayout
+    BuilderApp.on "builder:parser:done", (json) ->
+      for comprobante_id of json
+        builderContent.collection.add( new Backbone.Model(json[comprobante_id]) )
 
+    NominaApp.mainRegion.show builderLayout
 
   API =
     to_json: (workbook) ->
@@ -63,9 +70,6 @@ NominaApp.module "BuilderApp", (BuilderApp, NominaApp, Backbone, Marionette, $, 
               BuilderApp.trigger "update:progress:parser", percentLoaded
         reader.onloadend = (e) ->
           BuilderApp.trigger "update:progress:parser", 100
-          console.log('json')
-          console.log(json)
-
           that.transform_data(json)
 
         reader.readAsBinaryString(f)
@@ -78,10 +82,10 @@ NominaApp.module "BuilderApp", (BuilderApp, NominaApp, Backbone, Marionette, $, 
         _.each files, (file) ->
           if file.type isnt "application/vnd.ms-excel"
             valid = false
-            console.log("Los archivos a parsear deben tener ser en formato xls")
+            NominaApp.trigger "show:alert", "Los archivos a parsear deben ser en formato xls", "danger"
       else
         valid = false
-        console.log('No existen archivos a parsear')
+        NominaApp.trigger "show:alert", "No existen archivos a parsear", "danger"
 
       return valid
 
@@ -95,7 +99,7 @@ NominaApp.module "BuilderApp", (BuilderApp, NominaApp, Backbone, Marionette, $, 
             else
               json_res[id][name_object] = [ object ]
       else
-        console.log("No existe el elemeto " + name_object)
+        NominaApp.trigger "show:alert", "Formato incorrecto de achivo, no existe el elemeto " + name_object, "danger"
 
     #Esta función convertirá los datos (en json) que se obtienen del xls a la estructura (en json) que se enviará  
     transform_data: (json_xls) ->
@@ -111,7 +115,8 @@ NominaApp.module "BuilderApp", (BuilderApp, NominaApp, Backbone, Marionette, $, 
         this.push_data("impuestos", json_xls.impuestos, json_res)
         this.push_data("incapacidades", json_xls.incapacidades, json_res)
         this.push_data("percepciones", json_xls.percepciones, json_res)
-        console.log(json_res)
+
+        BuilderApp.trigger "builder:parser:done", json_res
       else
-        console.log("No existe el elemento comprobante")
+        NominaApp.trigger "show:alert", "Formato incorrecto de archivo, no existe el elemento comprobante", "danger"
 
