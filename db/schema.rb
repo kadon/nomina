@@ -11,7 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140227230307) do
+ActiveRecord::Schema.define(version: 20140227233624) do
+
+  create_table "companies", force: true do |t|
+    t.string   "nombre"
+    t.string   "rfc"
+    t.string   "lugar_de_expedicion"
+    t.string   "registro_patronal"
+    t.string   "periocidad_de_pago"
+    t.string   "riesgo_del_puesto"
+    t.string   "calle"
+    t.string   "numero_exterior"
+    t.string   "numero_interior"
+    t.string   "colonia"
+    t.string   "localidad"
+    t.string   "municipio"
+    t.string   "codigo_postal"
+    t.string   "estado"
+    t.string   "pais"
+    t.string   "regimen"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "employees", force: true do |t|
     t.string   "numero_de_empleado"

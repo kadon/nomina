@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombre: MyString
+  rfc: MyString
+  lugar_de_expedicion: MyString
+  registro_patronal: MyString
+  periocidad_de_pago: MyString
+  riesgo_del_puesto: MyString
+  calle: MyString
+  numero_exterior: MyString
+  numero_interior: MyString
+  colonia: MyString
+  localidad: MyString
+  municipio: MyString
+  codigo_postal: MyString
+  estado: MyString
+  pais: MyString
+  regimen: MyString
+
+two:
+  nombre: MyString
+  rfc: MyString
+  lugar_de_expedicion: MyString
+  registro_patronal: MyString
+  periocidad_de_pago: MyString
+  riesgo_del_puesto: MyString
+  calle: MyString
+  numero_exterior: MyString
+  numero_interior: MyString
+  colonia: MyString
+  localidad: MyString
+  municipio: MyString
+  codigo_postal: MyString
+  estado: MyString
+  pais: MyString
+  regimen: MyString
