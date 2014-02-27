@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140227200058) do
+ActiveRecord::Schema.define(version: 20140227230307) do
 
   create_table "employees", force: true do |t|
     t.string   "numero_de_empleado"
@@ -27,16 +27,16 @@ ActiveRecord::Schema.define(version: 20140227200058) do
     t.integer  "banco"
     t.string   "numero_de_cuenta"
     t.string   "puesto"
-    t.string   "riesgo_de_puesto"
-    t.string   "numero_seguridad_social"
-    t.string   "fecha_inicio_laboral"
-    t.string   "periocidad_pago"
-    t.string   "tipo_contrato"
+    t.string   "riesgo_del_puesto"
+    t.string   "numero_de_seguridad_social"
+    t.string   "fecha_inicio_de_relacion_laboral"
+    t.string   "periocidad_de_pago"
+    t.string   "tipo_de_contrato"
     t.decimal  "salario_diario_integrado"
-    t.decimal  "salario_base_cot_apor"
-    t.integer  "tipo_regimen"
+    t.decimal  "salario_base"
+    t.integer  "tipo_de_regimen"
     t.string   "sexo"
-    t.string   "tipo_jornada"
+    t.string   "tipo_de_jornada"
     t.integer  "antiguedad"
     t.string   "calle"
     t.string   "colonia"
