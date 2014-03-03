@@ -6,6 +6,7 @@ NominaApp.module "BuilderApp", (BuilderApp, NominaApp, Backbone, Marionette, $, 
     builderContent = new BuilderApp.Views.Content( {collection: new Backbone.Collection()} )
 
     builderPanel.on "builder:parse:file", (files) ->
+      builderContent.toggleSendButton(false)
       BuilderApp.trigger "builder:parse:file", files
 
     builderLayout.on "show", ->
@@ -31,6 +32,8 @@ NominaApp.module "BuilderApp", (BuilderApp, NominaApp, Backbone, Marionette, $, 
     BuilderApp.on "builder:parser:done", (json) ->
       for comprobante_id of json
         builderContent.collection.add( new Backbone.Model(json[comprobante_id]) )
+
+      builderContent.toggleSendButton(true)
 
     NominaApp.mainRegion.show builderLayout
 
