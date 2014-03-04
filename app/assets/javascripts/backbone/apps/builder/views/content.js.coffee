@@ -18,7 +18,7 @@ NominaApp.module "BuilderApp.Views", (Views, NominaApp, Backbone, Marionette, $,
     emptyView: NoDataView
 
     events:
-      "click #send-js": "sendToServer"
+      "click #send-js": "timbrar"
 
     ui:
       sendButton: "#send-js"
@@ -26,18 +26,11 @@ NominaApp.module "BuilderApp.Views", (Views, NominaApp, Backbone, Marionette, $,
     initialize: ->
       console.log "Linitialize content..."
 
-    sendToServer: (e) ->
-      if @collection.length > 0
-        #Pendiente, acá es donde se hará (o se llamará) el proceso para enviar los datos al servidor...
-        console.log( @collection.toJSON() )
-      else
-        NominaApp.trigger "show:alert", "No existe informacion para enviar al servidor", "danger"
-        
+    timbrar: (e) ->
+      @trigger "builder:timbrar"
 
     toggleSendButton: (active) ->
       if active
         @ui.sendButton.removeAttr("disabled")
       else
         @ui.sendButton.attr("disabled", "disabled")
-
-

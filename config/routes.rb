@@ -1,4 +1,5 @@
 Nomina::Application.routes.draw do
+  post "builders" => "builder#create"
   root 'home#index'
   devise_for :users, :path => "usuarios", :path_names => { :sign_in => 'login', :sign_out => 'logout'}
   # The priority is based upon order of creation: first created -> highest priority.

@@ -9,6 +9,14 @@ NominaApp.module "BuilderApp", (BuilderApp, NominaApp, Backbone, Marionette, $, 
       builderContent.toggleSendButton(false)
       BuilderApp.trigger "builder:parse:file", files
 
+    builderContent.on "builder:timbrar", ->
+      if @collection.length > 0
+        builder = NominaApp.request "builder:timbrar", @collection.toJSON()
+        $.when(builder).done (data) ->
+          alert(data)
+      else
+        NominaApp.trigger "show:alert", "No existe informacion para enviar al servidor", "danger"
+
     builderLayout.on "show", ->
       console.log('Layout show...')
       builderLayout.panelRegion.show builderPanel
