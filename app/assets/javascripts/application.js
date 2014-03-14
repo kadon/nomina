@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require lib/underscore
+//= require lib/spin
 //= require backbone
 //= require backbone.marionette
 //= require handlebars

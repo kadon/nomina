@@ -2,4 +2,9 @@
 <td><p class="text-muted"> {{serie}} </p></td>
 <td><p class="text-muted"> {{folio}} </p></td>
 <td><p class="text-muted"> {{num_cuenta_pago}} </p></td>
-<td><p class="text-muted"> {{fecha_pago}} </p></td>
+<td>
+  <button type="button" data-loading-text="Processing..." class="send-js btn btn-success">
+    Send
+  </button>
+  <button type="button" class="cancel-js btn btn-danger" disabled="disabled">Cancel</button>
+</td>
