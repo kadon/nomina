@@ -7,7 +7,9 @@ NominaApp.module "BuilderApp", (BuilderApp, NominaApp, Backbone, Marionette, $, 
 
     builderPanel.on "builder:parse:file", (files) ->
       builderContent.toggleSendButton(false)
-      BuilderApp.trigger "builder:parse:file", files
+      if API.valid_files(files)
+        builderContent.collection.reset([])
+        API.parser(files, builderLayout)
 
     builderContent.on "builder:timbrar", ->
       if @collection.length > 0
@@ -29,15 +31,10 @@ NominaApp.module "BuilderApp", (BuilderApp, NominaApp, Backbone, Marionette, $, 
       builderContent .off()
       builderContent .remove()
 
-    BuilderApp.on "builder:parse:file", (files) ->
-      if API.valid_files(files)
-        builderContent.collection.reset([])
-        API.parser(files)
-
-    BuilderApp.on "update:progress:parser", (percentage) ->
+    builderLayout.on "update:progress:parser", (percentage) ->
       builderPanel.trigger "update:progress", percentage
 
-    BuilderApp.on "builder:parser:done", (json) ->
+    builderLayout.on "builder:parser:done", (json) ->
       for comprobante_id of json
         builderContent.collection.add( new Backbone.Model(json[comprobante_id]) )
 
@@ -59,7 +56,7 @@ NominaApp.module "BuilderApp", (BuilderApp, NominaApp, Backbone, Marionette, $, 
       output = this.to_json(wb)
       output
 
-    parser: (files) ->
+    parser: (files, builderLayout) ->
       that = this
       json = {}
       i = 0
@@ -68,7 +65,7 @@ NominaApp.module "BuilderApp", (BuilderApp, NominaApp, Backbone, Marionette, $, 
         reader = new FileReader()
         name = f.name
         reader.onloadstart = (e) ->
-          BuilderApp.trigger "update:progress:parser", 0
+          builderLayout.trigger "update:progress:parser", 0
         reader.onload = (e) ->
           data = e.target.result
           cfb = XLS.CFB.read(data, {type: 'binary'})
@@ -78,10 +75,10 @@ NominaApp.module "BuilderApp", (BuilderApp, NominaApp, Backbone, Marionette, $, 
           if e.lengthComputable
             percentLoaded = Math.round((e.loaded / e.total) * 100)
             if (percentLoaded < 100)
-              BuilderApp.trigger "update:progress:parser", percentLoaded
+              builderLayout.trigger "update:progress:parser", percentLoaded
         reader.onloadend = (e) ->
-          BuilderApp.trigger "update:progress:parser", 100
-          that.transform_data(json)
+          builderLayout.trigger "update:progress:parser", 100
+          that.transform_data(json, builderLayout)
 
         reader.readAsBinaryString(f)
         i++
@@ -113,7 +110,7 @@ NominaApp.module "BuilderApp", (BuilderApp, NominaApp, Backbone, Marionette, $, 
         NominaApp.trigger "show:alert", "Formato incorrecto de achivo, no existe el elemeto " + name_object, "danger"
 
     #Esta función convertirá los datos (en json) que se obtienen del xls a la estructura (en json) que se enviará  
-    transform_data: (json_xls) ->
+    transform_data: (json_xls, builderLayout) ->
       json_res = {}
       if json_xls.comprobantes and json_xls.comprobantes.length isnt undefined
         _.each json_xls.comprobantes, (comprobante) ->
@@ -127,7 +124,7 @@ NominaApp.module "BuilderApp", (BuilderApp, NominaApp, Backbone, Marionette, $, 
         this.push_data("incapacidades", json_xls.incapacidades, json_res)
         this.push_data("percepciones", json_xls.percepciones, json_res)
 
-        BuilderApp.trigger "builder:parser:done", json_res
+        builderLayout.trigger "builder:parser:done", json_res
       else
         NominaApp.trigger "show:alert", "Formato incorrecto de archivo, no existe el elemento comprobante", "danger"
 
