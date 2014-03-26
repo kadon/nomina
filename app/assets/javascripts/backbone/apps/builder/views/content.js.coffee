@@ -1,4 +1,5 @@
 NominaApp.module "BuilderApp.Views", (Views, NominaApp, Backbone, Marionette, $, _) ->
+# Private
   spinner_button_opts =
     lines: 9 # The number of lines to draw
     length: 5 # The length of each line
@@ -26,6 +27,7 @@ NominaApp.module "BuilderApp.Views", (Views, NominaApp, Backbone, Marionette, $,
     tagName: "tr"
   )
 
+# Public
   class Views.Rowview extends Marionette.ItemView
     template: "builder/row_view"
     tagName: "tr"
@@ -45,7 +47,6 @@ NominaApp.module "BuilderApp.Views", (Views, NominaApp, Backbone, Marionette, $,
       cancel_btn = @$el.find('.cancel-js')
       send_btn.button('loading')
       cancel_btn.removeAttr('disabled')
-
       send_btn.find('span.spinner').append(generate_spinner_button().el)
 
 
@@ -79,9 +80,7 @@ NominaApp.module "BuilderApp.Views", (Views, NominaApp, Backbone, Marionette, $,
       e.stopPropagation()
       send_btn = $(e.currentTarget)
       send_btn.button('loading')
-
       send_btn.find('span.spinner').append(generate_spinner_button().el)
-
       @ui.cancelButton.removeAttr('disabled') if @ui.cancelButton.attr('disabled')
       @trigger "builder:timbrar"
 

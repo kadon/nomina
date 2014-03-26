@@ -1,5 +1,5 @@
 NominaApp.module "BuilderApp", (BuilderApp, NominaApp, Backbone, Marionette, $, _) ->
-
+# public
   BuilderApp.Controller = builder: ->
     builderLayout = new BuilderApp.Views.Layout()
     builderPanel = new BuilderApp.Views.Panel()
@@ -41,6 +41,8 @@ NominaApp.module "BuilderApp", (BuilderApp, NominaApp, Backbone, Marionette, $, 
       builderContent.toggleSendButton(true)
 
     NominaApp.mainRegion.show builderLayout
+
+# Private
 
   API =
     to_json: (workbook) ->

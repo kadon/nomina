@@ -19,6 +19,9 @@
     Backbone.history.start()
     NominaApp.trigger "home:index" if @getCurrentRoute() is ""
 
+@NominaApp.on "start", (options) ->
+  @websocket_url = options.websocket_url
+
 @NominaApp.on "show:alert", (message, type) ->
   model = new Backbone.Model({ type: type, message: message })
   NominaApp.alertsRegion.show new NominaApp.Common.Views.Alert({model: model})

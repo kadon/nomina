@@ -42,6 +42,9 @@ gem "devise", ">= 2.2.3"
 gem "haml-rails"
 gem 'bootstrap-sass', '~> 3.1.1'
 
+#Web Sockets
+gem 'websocket-rails'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
