@@ -15,6 +15,6 @@ class CompaniesController < ApplicationController
   end
 
   def company_params
-     params.require(:company).permit(:nombre, :rfc, :lugar_de_expedicion, :registro_patronal, :periocidad_de_pago, :riesgo_del_puesto, :calle, :numero_exterior, :numero_interior, :colonia, :localidad, :municipio, :codigo_postal, :estado, :pais, :regimen)
+     params.require(:company).permit(:nombre, :rfc, :lugar_de_expedicion, :registro_patronal, :periocidad_de_pago, :riesgo_del_puesto, :calle, :numero_exterior, :numero_interior, :colonia, :localidad, :municipio, :codigo_postal, :estado, :pais, :regimen, :certificado, :llave_privada)
   end
 end
