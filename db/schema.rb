@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140304053107) do
+ActiveRecord::Schema.define(version: 20140405204750) do
 
   create_table "builders", force: true do |t|
     t.integer  "status"
@@ -39,6 +39,14 @@ ActiveRecord::Schema.define(version: 20140304053107) do
     t.string   "regimen"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "certificado_file_name"
+    t.string   "certificado_content_type"
+    t.integer  "certificado_file_size"
+    t.datetime "certificado_updated_at"
+    t.string   "llave_privada_file_name"
+    t.string   "llave_privada_content_type"
+    t.integer  "llave_privada_file_size"
+    t.datetime "llave_privada_updated_at"
   end
 
   create_table "employees", force: true do |t|

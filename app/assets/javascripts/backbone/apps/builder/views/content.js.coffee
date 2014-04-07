@@ -49,6 +49,8 @@ NominaApp.module "BuilderApp.Views", (Views, NominaApp, Backbone, Marionette, $,
       cancel_btn.removeAttr('disabled')
       send_btn.find('span.spinner').append(generate_spinner_button().el)
 
+      NominaApp.WebsocketDispatcher.trigger "timbrar:request", {data: "data"}
+
 
     cancelSending: (e)->
       e.stopPropagation()

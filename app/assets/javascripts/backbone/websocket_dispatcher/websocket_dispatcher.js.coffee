@@ -1,22 +1,34 @@
 NominaApp.module "WebsocketDispatcher", (WebsocketDispatcher, NominaApp, Backbone, Marionette, $, _) ->
-  #class Dispatcher
-  #  constructor: (url,useWebSockets) ->
-  #    @messageQueue = []
-  #    @dispatcher = new WebSocketRails(url,useWebSockets)
-  #    @dispatcher.on_open = @sendMessage
-  #    #@bindEvents()
-  
 
   WebsocketDispatcher.on "start", (options) ->
-    #@dispatcher = new Dispatcher(options.websocket_url, true)
     API.dispatcher = new WebSocketRails(options.websocket_url, true)
     API.dispatcher.on_open = API.sendMessage
+    API.bindEvents()
+
+  WebsocketDispatcher.on "timbrar:request", (invoice) ->
+    API.timbrar_request (invoice)
+
+  WebsocketDispatcher.on "timbrar:success", (invoice) ->
+    console.log(invoice)
+
+  WebsocketDispatcher.on "timbrar:fail", (invoice) ->
+    console.log(invoice)
 
   API =
     dispatcher: null
+
     sendMessage: ->
       @trigger 'timbrar', {something: 'message'}
+
     timbrar_request: (invoice) ->
-      @trigger 'timbrar', invoice
-    timbrar_response: (message) ->
-      WebsocketDispatcher.trigger 'dispatcher:timbrar:response', (message)
+      @dispatcher.trigger 'timbrar', invoice
+
+    bindEvents: ->
+      @dispatcher.bind "timbrar_success", @timbrar_success
+      @dispatcher.bind "timbrar_fail", @timbrar_fail
+
+    timbrar_success: (invoice) ->
+      WebsocketDispatcher.trigger 'timbrar:success', (invoice)
+
+    timbrar_fail: (invoice) ->
+      WebsocketDispatcher.trigger 'timbrar:fails', (invoice)
